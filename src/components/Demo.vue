@@ -118,7 +118,7 @@
       },
       updateItem: function(item){
         this.editstate = null;
-        Axios.get('/apis/update?name='+item.name+'&id='+ item.id).then((response) => {
+        Axios.get(process.env.VUE_APP_BASE_API+'/update?name='+item.name+'&id='+ item.id).then((response) => {
           if(response.data.status === 'success')
           {
             this.request()
@@ -129,7 +129,7 @@
       },
 
       request: function (event) {
-        Axios.get('/apis/select/').then((response) => {
+        Axios.get(process.env.VUE_APP_BASE_API+'/select/').then((response) => {
           console.log(response.data);
           this.fruits = response.data;
         })
@@ -144,7 +144,7 @@
 
       addTodo: function (event) {
         const valueStr = event.target.value;
-        Axios.get('/apis/add?name='+valueStr).then((response) => {
+        Axios.get(process.env.VUE_APP_BASE_API+'/add?name='+valueStr).then((response) => {
           if(response.data.status === 'success')
           {
             this.request()
@@ -157,7 +157,7 @@
       },
 
       removeItem: function (index, item) {
-        Axios.get('/apis/delete?id='+ item.id).then((response) => {
+        Axios.get(process.env.VUE_APP_BASE_API+'/delete?id='+ item.id).then((response) => {
           if(response.data.status === 'success')
           {
             this.fruits.splice(index, 1);
@@ -172,7 +172,7 @@
 
         this.fruits = this.fruits.filter(function (item) {
           if(item.checkstate){
-            Axios.get('/apis/delete?id='+ item.id).then((response) => {
+            Axios.get(process.env.VUE_APP_BASE_API+'/delete?id='+ item.id).then((response) => {
               if(response.data.status !== 'success')
               {
                 alert(response.data.msg)
